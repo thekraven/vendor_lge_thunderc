@@ -46,6 +46,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     Provision \
     GoogleSearch \
+    LatinIME \
     hcitool \
     QuickSearchBox \
     FileManager \
