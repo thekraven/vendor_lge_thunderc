@@ -66,7 +66,5 @@ service wpa_supplicant /system/bin/wpa_supplicant -Dwext -iwlan0 -c/data/misc/wi
 # Wakelock debug
     write /sys/module/wakelock/parameters/debug_mask 7
 
-
-
 on property:dev.bootcomplete=1
     exec /system/bin/hwaddrs
