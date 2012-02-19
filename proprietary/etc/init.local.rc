@@ -5,11 +5,6 @@ service drm /system/bin/drmserver
     enabled
     oneshot
 
-#DHCP Fix by CheatMan - XDA
-service dhcpcd_eth0 /system/bin/dhcpcd -ABLK eth0
-    enabled
-    oneshot
-
 # Compcache - handle at boot
 service compcache /system/bin/handle_compcache
     user root
