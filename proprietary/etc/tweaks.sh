@@ -123,7 +123,7 @@ echo 500 512000 64 2048 > /proc/sys/kernel/sem;
 
 #prop tweaks
 
-setprop wifi.supplicant_scan_interval 300;
+setprop wifi.supplicant_scan_interval 90;
 setprop windowsmgr.max_events_per_sec 260;
 setprop ro.lge.proximity.delay 25;
 setprop mot.proximity.delay 25;
