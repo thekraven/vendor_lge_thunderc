@@ -48,6 +48,11 @@ service hciattach /system/bin/sh /system/bin/init.qcom.bt.sh
     group bluetooth net_bt_admin
     disabled
 
+	
+
+# Include extra init file 
+    import /system/etc/init.local.rc 
+
 #service dhcpcd_wlan0 /system/bin/dhcpcd -BKA wlan0
 #    disabled
 #    oneshot
@@ -88,4 +93,4 @@ service wpa_supplicant /system/bin/wpa_supplicant -D wext -i eth0 -c /data/misc/
 
 
 on property:dev.bootcomplete=1
-    exec /system/bin/hwaddrs
+    exec /system/bin/bdaddr_read
