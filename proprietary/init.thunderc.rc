@@ -24,17 +24,10 @@ on boot
     write /sys/class/rfkill/rfkill0/state 0
 ### End of LGE bluetooth
 # WIFI
-    mkdir /data/misc/wifi 0771 wifi wifi
     mkdir /data/misc/wifi/sockets 0771 wifi wifi
-	chown system wifi /data/misc/wifi/sockets
-	chmod 0771 /data/misc/wifi
-	mkdir /data/misc/dhcp 0777 system system
-	chown dhcp dhcp /data/misc/dhcp
-	mkdir /data/misc/dhcpcd 0771 dhcp dhcp 
-    chown dhcp dhcp /data/misc/dhcpcd
-    setprop wifi.supplicant_scan_interval 80
+    setprop wifi.supplicant_scan_interval 90
     setprop wifi.interface wlan0
-	
+    mkdir /data/misc/dhcp 0777 system system
      
 service qmuxd /system/bin/qmuxd
     user radio
