@@ -23,26 +23,17 @@ on boot
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
     write /sys/class/rfkill/rfkill0/state 0
 ### End of LGE bluetooth
-
-
 # WIFI
-    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+#    mkdir /data/misc/wifi 0771 wifi wifi
+    mkdir /data/misc/wifi/sockets 0771 wifi wifi
     setprop wifi.supplicant_scan_interval 90
     setprop wifi.interface wlan0
-	chown system misc /data/misc/wifi
-	chmod 0770 /data/misc/wifi
-	mkdir /data/system/wpa_supplicant 0770 wifi wifi
-	
-# DHCP
-#	mkdir /data/misc/dhcp 0777 system system
-	mkdir /data/misc/dhcp 0770 dhcp dhcp
-    chown dhcp dhcp /data/misc/dhcp
-
+    mkdir /data/misc/dhcp 0777 system system
+#	chmod 0771 /data/misc/wifi
+     
 service qmuxd /system/bin/qmuxd
-    class main
     user radio
     group radio
-	
 service ami304d /system/bin/ami304d
     user compass
     group system
@@ -52,24 +43,67 @@ service hciattach /system/bin/sh /system/bin/init.qcom.bt.sh
     group bluetooth net_bt_admin
     disabled
 
-#service wpa_supplicant /system/bin/wpa_supplicant -Dwext -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf
-service wpa_supplicant /system/bin/wpa_supplicant -Dwext -iwlan0 -c /data/misc/wifi/wpa_supplicant.conf -dd
-    socket wpa_wlan0 dgram 660 wifi wifi
-    group system wifi inet
-    disabled
-    oneshot
+# Enable ADB
+write /dev/usb_device_mode msc_adb
+
+on property:persist.service.adb.enable=1
+    start adbd
+
+# Include extra init file 
+    import /system/etc/init.local.rc 
 
 service dhcpcd_wlan0 /system/bin/dhcpcd -BKA wlan0
+#    class WLAN
+#	group dhcp
     disabled
     oneshot
 
+#service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL -d wlan0
+#    class WLAN
+    #user system  #- this makes socket() calls fail with permission denied
+#    group dhcp
+#    disabled
+#    oneshot
+
 service iprenew_wlan0 /system/bin/dhcpcd -n wlan0
+#    group dhcp
     disabled
     oneshot
+	
+#service iprenew_wlan0 /system/bin/dhcpcd -n 
+#    group dhcp
+#    disabled
+#    oneshot
 
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd_wlan0
 
+service wpa_supplicant /system/bin/wpa_supplicant -Dwext -iwlan0 -c /data/misc/wifi/wpa_supplicant.conf
+    socket wpa_wlan0 dgram 0660 wifi wifi
+    group system wifi inet
+    disabled
+    oneshot
+
+#service wpa_supplicant /system/bin/wpa_supplicant -Dwext -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf
+#    class WLAN 
+#	socket wpa_wlan0 dgram 0660 wifi wifi
+#    disabled
+#    oneshot
+	
+#try next
+#service wpa_supplicant /system/bin/wpa_supplicant -D wext -i eth0 -c/data/misc/wifi/wpa_supplicant.conf
+ #   class post-zygote_services
+ #   socket wpa_eth0 dgram 0660 wifi wifi	
+#    oneshot
+#    disabled
+
+#on property:init.svc.wpa_supplicant=stopped
+#    stop dhcpcd_eth0
+
+#service dhcpcd_eth0 /system/bin/dhcpcd
+#    class post-zygote_services
+#    disabled
+#    oneshot	
 # Fast dormancy settings
     setprop ro.ril.fast.dormancy.rule 1
     setprop ro.ril.fd.scron.timeout 4
@@ -77,6 +111,8 @@ on property:init.svc.wpa_supplicant=stopped
 
 # Wakelock debug
     write /sys/module/wakelock/parameters/debug_mask 7
+
+
 
 on property:dev.bootcomplete=1
     exec /system/bin/bdaddr_read

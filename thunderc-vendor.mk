@@ -49,7 +49,6 @@ PRODUCT_PACKAGES += \
     dump_image \
     thunder_keypad.kcm.bin \
 	com.android.future.usb.accessory \
-	hcitool \
     bdaddr_read
 #	libril \  not needed yet
 #	liblgdrm \
