@@ -53,7 +53,7 @@ service hciattach /system/bin/sh /system/bin/init.qcom.bt.sh
     disabled
 
 #service wpa_supplicant /system/bin/wpa_supplicant -Dwext -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf
-service wpa_supplicant /system/bin/wpa_supplicant -Dwext -iwlan0 -c /data/misc/wifi/wpa_supplicant.conf -dd
+service wpa_supplicant /system/bin/wpa_supplicant -Dwext -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf -dd
     socket wpa_wlan0 dgram 660 wifi wifi
     group system wifi inet
     disabled
