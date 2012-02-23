@@ -107,6 +107,28 @@ on post-fs
     # once everything is setup, no need to modify /
     mount rootfs rootfs / ro remount
 
+# We chown/chmod /cache again so because mount is run as root + defaults
+    chown system cache /cache
+    chmod 0771 /cache
+
+    # This may have been created by the recovery system with odd permissions
+    chown system cache /cache/recovery
+    chmod 0770 /cache/recovery
+
+    #change permissions on vmallocinfo so we can grab it from bugreports
+    chown root log /proc/vmallocinfo
+    chmod 0440 /proc/vmallocinfo
+
+    #change permissions on kmsg & sysrq-trigger so bugreports can grab kthread stacks
+    chown root system /proc/kmsg
+    chmod 0440 /proc/kmsg
+    chown root system /proc/sysrq-trigger
+    chmod 0220 /proc/sysrq-trigger
+
+    # create the lost+found directories, so as to enforce our permissions
+    mkdir /cache/lost+found 0770 root root
+
+on post-fs-data
     # We chown/chmod /data again so because mount is run as root + defaults
     chown system system /data
     chmod 0771 /data
@@ -133,27 +155,6 @@ on post-fs
     chmod 0640 /data/dontpanic/apanic_threads
 
     write /proc/apanic_console 1
-
-    # Same reason as /data above
-    chown system cache /cache
-    chmod 0771 /cache
-
-    # This may have been created by the recovery system with odd permissions
-    chown system cache /cache/recovery
-    chmod 0770 /cache/recovery
-
-    #change permissions on vmallocinfo so we can grab it from bugreports
-    chown root log /proc/vmallocinfo
-    chmod 0440 /proc/vmallocinfo
-
-    #change permissions on kmsg & sysrq-trigger so bugreports can grab kthread stacks
-    chown root system /proc/kmsg
-    chmod 0440 /proc/kmsg
-    chown root system /proc/sysrq-trigger
-    chmod 0220 /proc/sysrq-trigger
-	
-	# create the lost+found directories, so as to enforce our permissions
-    mkdir /cache/lost+found 0770 root root
 
 # create basic filesystem structure
     mkdir /data/misc 01771 system misc
@@ -364,16 +365,38 @@ on boot
 
 
 
+# Set this property so surfaceflinger is not started by system_init
+    setprop system_init.startsurfaceflinger 0
 
+    class_start core
+    class_start main
 
+on nonencrypted
+    class_start late_start
 
+on charger
+    class_start charger
 
+on property:vold.decrypt=trigger_reset_main
+    class_reset main
 
+on property:vold.decrypt=trigger_load_persist_props
+    load_persist_props
 
+on property:vold.decrypt=trigger_post_fs_data
+    trigger post-fs-data
 
+on property:vold.decrypt=trigger_restart_min_framework
+    class_start main
 
+on property:vold.decrypt=trigger_restart_framework
+    class_start main
+    class_start late_start
 
-
+on property:vold.decrypt=trigger_shutdown_framework
+    class_reset late_start
+    class_reset main
+	
 # XXX: inline system/etc/init.local.rc, system/etc/init.thunderc.usb.rc
 #Market Fix by CheatMan - XDA
 service drm /system/bin/drmserver
