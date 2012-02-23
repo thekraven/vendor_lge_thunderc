@@ -34,8 +34,6 @@ loglevel 7
 # but someday that may change.
     symlink /system/vendor /vendor
 
-
-
 # Create cgroup mount point for cpu accounting
     mkdir /acct
     mount cgroup none /acct cpuacct
@@ -153,6 +151,9 @@ on post-fs
     chmod 0440 /proc/kmsg
     chown root system /proc/sysrq-trigger
     chmod 0220 /proc/sysrq-trigger
+	
+	# create the lost+found directories, so as to enforce our permissions
+    mkdir /cache/lost+found 0770 root root
 
 # create basic filesystem structure
     mkdir /data/misc 01771 system misc
@@ -186,6 +187,11 @@ on post-fs
     chown system system /cache/dalvik-cache
     chmod 0771 /cache/dalvik-cache
 
+    # create resource-cache and double-check the perms
+    mkdir /data/resource-cache 0771 system system
+    chown system system /data/resource-cache
+    chmod 0771 /data/resource-cache
+	
     # create the lost+found directories, so as to enforce our permissions
     mkdir /data/lost+found 0770
     mkdir /cache/lost+found 0770
@@ -301,7 +307,11 @@ on boot
     chown system system /sys/kernel/ipv4/tcp_rmem_def
     chown system system /sys/kernel/ipv4/tcp_rmem_max
     chown root radio /proc/cmdline
-
+    chmod 0666 /dev/msm_camera/config0
+	chmod 0666 /dev/msm_camera/control0
+	chmod 0666 /dev/msm_camera/frame0
+	chmod 0666 /dev/graphics/fb0
+	
 # Define TCP buffer sizes for various networks
 #   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
     setprop net.tcp.buffersize.default 4096,87380,110208,4096,16384,110208
@@ -315,6 +325,33 @@ on boot
 
 
     class_start default
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -355,7 +392,6 @@ service compcache /system/bin/handle_compcache
     user root
     group root
     oneshot
-
 # Used to disable USB when switching states
 on property:sys.usb.config=none
     stop adbd
@@ -450,7 +486,8 @@ service console /system/bin/sh
 
 on property:ro.secure=0
     start console
-
+on property:ro.debuggable=1
+    start console
 
 # adbd is controlled by the persist.service.adb.enable system property
 service adbd /sbin/adbd
@@ -482,6 +519,7 @@ service servicemanager /system/bin/servicemanager
     critical
     onrestart restart zygote
     onrestart restart media
+    onrestart restart surfaceflinger
 
 service vold /system/bin/vold
     socket vold stream 0660 root mount
@@ -498,6 +536,11 @@ service ril-daemon /system/bin/rild
     socket rild-debug stream 660 radio system
     user root
     group radio cache inet misc audio sdcard_rw net_admin net_raw qcom_oncrpc diag
+service surfaceflinger /system/bin/surfaceflinger
+    class main
+    user system
+    group graphics
+    onrestart restart zygote
 
 service zygote /system/bin/app_process -Xzygote /system/bin --zygote --start-system-server
     socket zygote stream 666
@@ -566,14 +609,14 @@ service installd /system/bin/installd
 service racoon /system/bin/racoon
     socket racoon stream 600 system system
     # racoon will setuid to vpn after getting necessary resources.
-    group net_admin
+    group vpn net_admin inet
     disabled
     oneshot
 
 service mtpd /system/bin/mtpd
     socket mtpd stream 600 system system
     user vpn
-    group vpn net_admin net_raw
+    group vpn net_admin inet net_raw
     disabled
     oneshot
 
