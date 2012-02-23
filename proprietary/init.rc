@@ -383,7 +383,7 @@ service drm /system/bin/drmserver
     oneshot
 
 #DHCP Fix by CheatMan - XDA
-service dhcpcd_wlan0 /system/bin/dhcpcd -ABLK wlan0
+service dhcpcd_eth0 /system/bin/dhcpcd -ABLK wlan0
     enabled
     oneshot
 
