@@ -383,7 +383,7 @@ service drm /system/bin/drmserver
     oneshot
 
 #DHCP Fix by CheatMan - XDA
-service dhcpcd_eth0 /system/bin/dhcpcd -ABLK wlan0
+service dhcpcd_eth0 /system/bin/dhcpcd -ABLK eth0
     enabled
     oneshot
 
@@ -516,9 +516,9 @@ on property:persist.service.adb.enable=0
     stop adbd
 	
 service servicemanager /system/bin/servicemanager
-    class core
+#    class core
     user system
-	group system
+#	group system
     critical
     onrestart restart zygote
     onrestart restart media
@@ -526,7 +526,7 @@ service servicemanager /system/bin/servicemanager
 #    onrestart restart drm
 
 service vold /system/bin/vold
-    class core
+#    class core
     socket vold stream 0660 root mount
     ioprio be 2
 	
@@ -534,12 +534,12 @@ service vold /system/bin/vold
 #   socket drmserver stream 0555 root system
 
 service netd /system/bin/netd
-    class main
+#    class main
     socket netd stream 0660 root system
     socket dnsproxyd stream 0660 root inet
 
 service debuggerd /system/bin/debuggerd
-    class main
+#    class main
 
 service ril-daemon /system/bin/rild
     class main
@@ -555,7 +555,7 @@ service surfaceflinger /system/bin/surfaceflinger
     onrestart restart zygote
 
 service zygote /system/bin/app_process -Xzygote /system/bin --zygote --start-system-server
-    class main
+#    class main
     socket zygote stream 666
     onrestart write /sys/android_power/request_state wake
     onrestart write /sys/power/state on
@@ -568,26 +568,26 @@ service zygote /system/bin/app_process -Xzygote /system/bin --zygote --start-sys
 #    group system inet drmrpc
 
 service media /system/bin/mediaserver
-    class main
+#    class main
     user media
-    group audio camera inet net_bt net_bt_admin net_bw_acct drmrpc
+    group system audio camera graphics inet net_bt net_bt_admin net_raw
     ioprio rt 4
 
 service bootanim /system/bin/bootanimation
-    class main
+#    class main
     user graphics
     group graphics
     disabled
     oneshot
 
 service dbus /system/bin/dbus-daemon --system --nofork
-    class main
+#    class main
     socket dbus stream 660 bluetooth bluetooth
     user bluetooth
     group bluetooth net_bt_admin
 
 service bluetoothd /system/bin/bluetoothd -n
-    class main
+#    class main
     socket bluetooth stream 660 bluetooth bluetooth
     socket dbus_bluetooth stream 660 bluetooth bluetooth
     # init.rc does not yet support applying capabilities, so run as root and
@@ -631,11 +631,11 @@ service ftp /system/bin/sdptool add --channel=16 FTP
     oneshot
 
 service installd /system/bin/installd
-    class main
+#    class main
     socket installd stream 600 system system
 
 service racoon /system/bin/racoon
-    class main
+#    class main
     socket racoon stream 600 system system
     # racoon will setuid to vpn after getting necessary resources.
     group vpn net_admin inet
@@ -651,13 +651,13 @@ service mtpd /system/bin/mtpd
     oneshot
 
 service keystore /system/bin/keystore /data/misc/keystore
-    class main
+#    class main
     user keystore
     group keystore
     socket keystore stream 666
 
 service dumpstate /system/bin/dumpstate -s
-    class main
+#    class main
     socket dumpstate stream 0660 shell log
     disabled
     oneshot
