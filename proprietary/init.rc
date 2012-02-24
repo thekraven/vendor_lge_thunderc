@@ -406,9 +406,9 @@ service drm /system/bin/drmserver
     oneshot
 
 #DHCP Fix by CheatMan - XDA
-service dhcpcd_eth0 /system/bin/dhcpcd -ABLK eth0
-    enabled
-    oneshot
+#service dhcpcd_wlan0 /system/bin/dhcpcd -ABLK wlan0
+#    enabled
+#    oneshot
 
 # Compcache - handle at boot
 service compcache /system/bin/handle_compcache
