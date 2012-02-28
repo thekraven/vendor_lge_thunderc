@@ -27,13 +27,11 @@ PRODUCT_PACKAGES += \
     libOmxCore \
     libjni_latinime \
     librs_jni \
-	libcamera \
-	libstagefrighthw \
-	audio.a2dp.default \
-	audio.a2dp.thunderc \
-	audio_policy.thunderc \
-	audio.primary.thunderc \
-	camera.thunderc \
+    libstagefrighthw \
+    audio.a2dp.default \
+    audio.a2dp.thunderc \
+    audio_policy.thunderc \
+    audio.primary.thunderc \
     brcm_patchram_plus \
     libaudio.thunderc \
     copybit.thunderc \
@@ -48,11 +46,13 @@ PRODUCT_PACKAGES += \
     erase_image \
     dump_image \
     thunder_keypad.kcm.bin \
-	com.android.future.usb.accessory \
+    com.android.future.usb.accessory \
     bdaddr_read
 #	libril \  not needed yet
 #	liblgdrm \
+#       libcamera \
 #	liblgeat \
+#      camera.thunderc \
 #	liblgerft \
 
 PRODUCT_PACKAGES += \
@@ -62,8 +62,7 @@ PRODUCT_PACKAGES += \
     hcitool \
     QuickSearchBox \
     FileManager \
-    com.android.future.usb.accessory
-
+    
 PRODUCT_COPY_FILES += \
     vendor/lge/thunderc/proprietary/etc/apns-conf.xml:system/etc/apns-conf.xml \
     vendor/lge/thunderc/proprietary/etc/gps.conf:system/etc/gps.conf \
