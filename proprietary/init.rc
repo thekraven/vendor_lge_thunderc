@@ -7,7 +7,7 @@ on init
 
 sysclktz 0
 
-loglevel 7
+loglevel 3
 
 # setup the global environment
     export PATH /sbin:/vendor/bin:/system/sbin:/system/bin:/system/xbin
@@ -75,7 +75,6 @@ loglevel 7
     write /proc/sys/kernel/sched_wakeup_granularity_ns 2000000
     write /proc/sys/kernel/sched_compat_yield 1
     write /proc/sys/kernel/sched_child_runs_first 0
-	write /proc/sys/kernel/randomize_va_space 2
 
 # Create cgroup mount points for process groups
     mkdir /dev/cpuctl
@@ -371,9 +370,9 @@ service drm /system/bin/drmserver
     oneshot
 
 #DHCP Fix by CheatMan - XDA
-#service dhcpcd_wlan0 /system/bin/dhcpcd -ABLK wlan0
-#    enabled
-#    oneshot
+service dhcpcd_wlan0 /system/bin/dhcpcd -ABLK wlan0
+    enabled
+    oneshot
 
 # Compcache - handle at boot
 service compcache /system/bin/handle_compcache
@@ -597,14 +596,14 @@ service installd /system/bin/installd
 service racoon /system/bin/racoon
     socket racoon stream 600 system system
     # racoon will setuid to vpn after getting necessary resources.
-    group vpn net_admin inet
+    group net_admin 
     disabled
     oneshot
 
 service mtpd /system/bin/mtpd
     socket mtpd stream 600 system system
     user vpn
-    group vpn net_admin inet net_raw
+    group vpn net_admin net_raw
     disabled
     oneshot
 
