@@ -27,11 +27,6 @@ PRODUCT_PACKAGES += \
     libOmxCore \
     libjni_latinime \
     librs_jni \
-    libstagefrighthw \
-    audio.a2dp.default \
-    audio.a2dp.thunderc \
-    audio_policy.thunderc \
-    audio.primary.thunderc \
     brcm_patchram_plus \
     libaudio.thunderc \
     copybit.thunderc \
@@ -48,12 +43,6 @@ PRODUCT_PACKAGES += \
     thunder_keypad.kcm.bin \
     com.android.future.usb.accessory \
     bdaddr_read
-#	libril \  not needed yet
-#	liblgdrm \
-#       libcamera \
-#	liblgeat \
-#      camera.thunderc \
-#	liblgerft \
 
 PRODUCT_PACKAGES += \
     Provision \
@@ -62,22 +51,23 @@ PRODUCT_PACKAGES += \
     hcitool \
     QuickSearchBox \
     FileManager \
+
     
 PRODUCT_COPY_FILES += \
-    vendor/lge/thunderc/proprietary/etc/apns-conf.xml:system/etc/apns-conf.xml \
-    vendor/lge/thunderc/proprietary/etc/gps.conf:system/etc/gps.conf \
-    vendor/lge/thunderc/proprietary/etc/permissions/android.hardware.microphone.xml:system/etc/permissions/android.hardware.microphone.xml \
-    vendor/lge/thunderc/proprietary/etc/01_qcomm_omx.cfg:system/etc/01_qcomm_omx.cfg \
-    vendor/lge/thunderc/proprietary/etc/MELFAS_FIRM.bin:system/etc/MELFAS_FIRM.bin \
-    vendor/lge/thunderc/proprietary/etc/wiperconfig.xml:system/etc/wiperconfig.xml \
-    vendor/lge/thunderc/proprietary/etc/loc_parameter.ini:system/etc/loc_parameter.ini \
-    vendor/lge/thunderc/proprietary/init.rc:root/init.rc \
-    vendor/lge/thunderc/proprietary/ueventd.rc:root/ueventd.rc \
-    vendor/lge/thunderc/proprietary/etc/media_profiles.xml:system/etc/media_profiles.xml \
-    vendor/lge/thunderc/proprietary/etc/tweaks.sh:system/etc/tweaks.sh \
-    vendor/lge/thunderc/proprietary/etc/setwifi.sh:system/etc/setwifi.sh\
-    vendor/lge/thunderc/proprietary/etc/init.d:system/etc/init.d \
-    vendor/lge/thunderc/proprietary/etc/hosts:system/etc/hosts
+    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/apns-conf.xml:system/etc/apns-conf.xml \
+    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/gps.conf:system/etc/gps.conf \
+    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/permissions/android.hardware.microphone.xml:system/etc/permissions/android.hardware.microphone.xml \
+    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/01_qcomm_omx.cfg:system/etc/01_qcomm_omx.cfg \
+    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/MELFAS_FIRM.bin:system/etc/MELFAS_FIRM.bin \
+    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/wiperconfig.xml:system/etc/wiperconfig.xml \
+    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/loc_parameter.ini:system/etc/loc_parameter.ini \
+    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/init.rc:root/init.rc \
+    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/ueventd.rc:root/ueventd.rc \
+    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/media_profiles.xml:system/etc/media_profiles.xml \
+    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/tweaks.sh:system/etc/tweaks.sh \
+    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/setwifi.sh:system/etc/setwifi.sh\
+    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/init.d:system/etc/init.d \
+    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/hosts:system/etc/hosts
     
 #    vendor/lge/thunderc/proprietary/lib/libsurfaceflinger.so:system/lib/libsurfaceflinger.so
 
