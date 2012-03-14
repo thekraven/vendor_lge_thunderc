@@ -24,8 +24,8 @@ on boot
     write /sys/class/rfkill/rfkill0/state 0
 ### End of LGE bluetooth
 # WIFI
-#    mkdir /data/misc/wifi/sockets 0770 wifi wifi
-#    setprop wifi.supplicant_scan_interval 20
+    mkdir /data/misc/wifi/sockets 0770 wifi wifi
+    setprop wifi.supplicant_scan_interval 20
 #    setprop wifi.interface wlan0
 #    mkdir /data/misc/dhcp 0777 system system
 
