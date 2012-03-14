@@ -1,6 +1,4 @@
 on early-init
-    # Set init and its forked children's oom_adj.
-    write /proc/1/oom_adj -16
     start ueventd
 
 on init
@@ -35,6 +33,7 @@ loglevel 3
 # create mountpoints
     mkdir /mnt 0775 root system
     mkdir /mnt/sdcard 0000 system system
+
 # Create cgroup mount point for cpu accounting
     mkdir /acct
     mount cgroup none /acct cpuacct
@@ -115,28 +114,6 @@ on post-fs
     # once everything is setup, no need to modify /
     mount rootfs rootfs / ro remount
 
-# We chown/chmod /cache again so because mount is run as root + defaults
-    chown system cache /cache
-    chmod 0771 /cache
-
-    # This may have been created by the recovery system with odd permissions
-    chown system cache /cache/recovery
-    chmod 0770 /cache/recovery
-
-    #change permissions on vmallocinfo so we can grab it from bugreports
-    chown root log /proc/vmallocinfo
-    chmod 0440 /proc/vmallocinfo
-
-    #change permissions on kmsg & sysrq-trigger so bugreports can grab kthread stacks
-    chown root system /proc/kmsg
-    chmod 0440 /proc/kmsg
-    chown root system /proc/sysrq-trigger
-    chmod 0220 /proc/sysrq-trigger
-
-    # create the lost+found directories, so as to enforce our permissions
-    mkdir /cache/lost+found 0770 root root
-
-on post-fs-data
     # We chown/chmod /data again so because mount is run as root + defaults
     chown system system /data
     chmod 0771 /data
@@ -164,12 +141,29 @@ on post-fs-data
 
     write /proc/apanic_console 1
 
+    # Same reason as /data above
+    chown system cache /cache
+    chmod 0771 /cache
+
+    # This may have been created by the recovery system with odd permissions
+    chown system cache /cache/recovery
+    chmod 0770 /cache/recovery
+
+    #change permissions on vmallocinfo so we can grab it from bugreports
+    chown root log /proc/vmallocinfo
+    chmod 0440 /proc/vmallocinfo
+
+    #change permissions on kmsg & sysrq-trigger so bugreports can grab kthread stacks
+    chown root system /proc/kmsg
+    chmod 0440 /proc/kmsg
+    chown root system /proc/sysrq-trigger
+    chmod 0220 /proc/sysrq-trigger
+
 # create basic filesystem structure
     mkdir /data/misc 01771 system misc
     mkdir /data/misc/bluetoothd 0770 bluetooth bluetooth
     mkdir /data/misc/bluetooth 0770 system system
     mkdir /data/misc/keystore 0700 keystore keystore
-	mkdir /data/misc/keychain 0771 system system
     mkdir /data/misc/vpn 0770 system system
     mkdir /data/misc/systemkeys 0700 system system
     mkdir /data/misc/vpn/profiles 0770 system system
@@ -196,11 +190,10 @@ on post-fs-data
     chown system system /cache/dalvik-cache
     chmod 0771 /cache/dalvik-cache
 
-    # create resource-cache and double-check the perms
+# create resource-cache and double-check the perms
     mkdir /data/resource-cache 0771 system system
     chown system system /data/resource-cache
     chmod 0771 /data/resource-cache
-	
     # create the lost+found directories, so as to enforce our permissions
     mkdir /data/lost+found 0770
     mkdir /cache/lost+found 0770
@@ -214,11 +207,6 @@ on post-fs-data
     # allow net_raw to have access to /dev/socket directory
     chown root net_raw /dev/socket
     chmod 0775 /dev/socket
-
-    chown system system /sys/class/android_usb/android0/f_mass_storage/lun/file
-    chmod 0660 /sys/class/android_usb/android0/f_mass_storage/lun/file
-    chown system system /sys/class/android_usb/android0/f_rndis/ethaddr
-    chmod 0660 /sys/class/android_usb/android0/f_rndis/ethaddr
 
     # allow system to modify cpufreq control files
     chown root system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
@@ -316,6 +304,7 @@ on boot
     chown system system /sys/kernel/ipv4/tcp_rmem_def
     chown system system /sys/kernel/ipv4/tcp_rmem_max
     chown root radio /proc/cmdline
+
 # Define TCP buffer sizes for various networks
 #   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
     setprop net.tcp.buffersize.default 4096,87380,110208,4096,16384,110208
@@ -325,42 +314,10 @@ on boot
     setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
 
 # Run sysinit
-#    exec /system/bin/sysinit
+    exec /system/bin/sysinit
 
     class_start default
 
-# Set this property so surfaceflinger is not started by system_init
-    setprop system_init.startsurfaceflinger 0
-
-    class_start core
-    class_start main
-
-on nonencrypted
-    class_start late_start
-
-on charger
-    class_start charger
-
-on property:vold.decrypt=trigger_reset_main
-    class_reset main
-
-on property:vold.decrypt=trigger_load_persist_props
-    load_persist_props
-
-on property:vold.decrypt=trigger_post_fs_data
-    trigger post-fs-data
-
-on property:vold.decrypt=trigger_restart_min_framework
-    class_start main
-
-on property:vold.decrypt=trigger_restart_framework
-    class_start main
-    class_start late_start
-
-on property:vold.decrypt=trigger_shutdown_framework
-    class_reset late_start
-    class_reset main
-	
 # XXX: inline system/etc/init.local.rc, system/etc/init.thunderc.usb.rc
 #Market Fix by CheatMan - XDA
 service drm /system/bin/drmserver
@@ -370,7 +327,7 @@ service drm /system/bin/drmserver
     oneshot
 
 #DHCP Fix by CheatMan - XDA
-service dhcpcd_wlan0 /system/bin/dhcpcd -ABLK wlan0
+service dhcpcd_eth0 /system/bin/dhcpcd -ABLK eth0
     enabled
     oneshot
 
@@ -385,18 +342,6 @@ on property:sys.usb.config=none
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/bDeviceClass 0
     setprop sys.usb.state $sys.usb.config
-	
-# adb only USB configuration
-# This should only be used during device bringup
-# and as a fallback if the USB manager fails to set a standard configuration
-#on property:sys.usb.config=adb
-#    write /sys/class/android_usb/android0/enable 0
-#    write /sys/class/android_usb/android0/idVendor 18d1
-#    write /sys/class/android_usb/android0/idProduct D002
-#    write /sys/class/android_usb/android0/functions $sys.usb.config
-#    write /sys/class/android_usb/android0/enable 1
-#    start adbd
-#    setprop sys.usb.state $sys.usb.config
 
 
 # USB accessory configuration
@@ -425,7 +370,6 @@ on property:sys.usb.config=accessory,adb
 # when changing the default configuration
 on property:persist.sys.usb.config=*
     setprop sys.usb.config $persist.sys.usb.config
-	
 on property:sys.usb.config=adb
     write /sys/class/usb_composite/adb/enable 1
     start adbd
@@ -494,7 +438,6 @@ on property:service.adb.root=1
     write /sys/class/android_usb/android0/enable 0
     restart adbd
     write /sys/class/android_usb/android0/enable 1
-	
 on property:persist.service.adb.enable=1
     start adbd
 
@@ -506,7 +449,6 @@ service servicemanager /system/bin/servicemanager
     critical
     onrestart restart zygote
     onrestart restart media
-    onrestart restart surfaceflinger
 
 service vold /system/bin/vold
     socket vold stream 0660 root mount
@@ -523,11 +465,6 @@ service ril-daemon /system/bin/rild
     socket rild-debug stream 660 radio system
     user root
     group radio cache inet misc audio sdcard_rw net_admin net_raw qcom_oncrpc diag
-service surfaceflinger /system/bin/surfaceflinger
-    class main
-    user system
-    group graphics
-    onrestart restart zygote
 
 service zygote /system/bin/app_process -Xzygote /system/bin --zygote --start-system-server
     socket zygote stream 666
@@ -596,7 +533,7 @@ service installd /system/bin/installd
 service racoon /system/bin/racoon
     socket racoon stream 600 system system
     # racoon will setuid to vpn after getting necessary resources.
-    group net_admin 
+    group net_admin
     disabled
     oneshot
 

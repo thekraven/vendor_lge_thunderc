@@ -4,9 +4,6 @@ WITH_WINDOWS_MEDIA := true
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.dexopt-data-only=1 \
 
-#include frameworks/base/data/sounds/AudioPackage4.mk
-#include frameworks/base/data/sounds/AudioPackage5.mk
-
 #PRODUCT_PACKAGES += \
 #    libmm-omxcore \
 #    libOmxCore \
