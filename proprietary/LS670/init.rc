@@ -319,6 +319,8 @@ on boot
     setprop net.tcp.buffersize.edge    4093,26280,35040,4096,16384,35040
     setprop net.tcp.buffersize.gprs    4092,8760,11680,4096,8760,11680
 
+# Include extra init file
+    import /system/etc/init.thunderc.usb.rc
 # Run sysinit
     exec /system/bin/sysinit
 
@@ -342,6 +344,7 @@ service compcache /system/bin/handle_compcache
     user root
     group root
     oneshot
+	
 # Used to disable USB when switching states
 on property:sys.usb.config=none
     stop adbd
@@ -386,39 +389,6 @@ on property:sys.usb.config=accessory,adb
 # when changing the default configuration
 on property:persist.sys.usb.config=*
     setprop sys.usb.config $persist.sys.usb.config
-
-on property:sys.usb.config=adb
-    write /sys/class/usb_composite/adb/enable 1
-    start adbd
-    setprop sys.usb.state $sys.usb.config
-
-on property:sys.usb.config=mass_storage
-    write /sys/class/usb_composite/usb_mass_storage/enable 1
-    start adbd
-    setprop sys.usb.state $sys.usb.config
-
-on property:sys.usb.config=mass_storage,adb
-    write /sys/class/usb_composite/usb_mass_storage/enable 1
-    write /sys/class/usb_composite/adb/enable 1
-    start adbd
-    setprop sys.usb.state $sys.usb.config
-
-on property:sys.usb.config=rndis
-    write /sys/class/usb_composite/rndis/enable 1
-    setprop sys.usb.state $sys.usb.config
-
-on property:sys.usb.config=rndis,adb
-    write /sys/class/usb_composite/rndis/enable 1
-    write /sys/class/usb_composite/adb/enable 1
-    start adbd
-    setprop sys.usb.state $sys.usb.config
-
-on property:sys.usb.config=mass_storage,rndis,adb
-    write /sys/class/usb_composite/usb_mass_storage/enable 1
-    write /sys/class/usb_composite/rndis/enable 1
-    write /sys/class/usb_composite/adb/enable 1
-    start adbd
-    setprop sys.usb.state $sys.usb.config
 
 ## Daemon processes to be run by init.
 ##
