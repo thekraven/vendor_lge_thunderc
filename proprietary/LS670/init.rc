@@ -1,4 +1,6 @@
 on early-init
+    # Set init and its forked children's oom_adj.
+    write /proc/1/oom_adj -16
     start ueventd
 
 on init
@@ -352,13 +354,13 @@ on property:sys.usb.config=none
 # This should only be used during device bringup
 # and as a fallback if the USB manager fails to set a standard configuration
 on property:sys.usb.config=adb
-#    write /sys/class/android_usb/android0/enable 0
-#    write /sys/class/android_usb/android0/idVendor 18d1
-#    write /sys/class/android_usb/android0/idProduct D002
-#    write /sys/class/android_usb/android0/functions $sys.usb.config
-#    write /sys/class/android_usb/android0/enable 1
-#    start adbd
-#    setprop sys.usb.state $sys.usb.config
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 18d1
+    write /sys/class/android_usb/android0/idProduct D002
+    write /sys/class/android_usb/android0/functions $sys.usb.config
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
+    setprop sys.usb.state $sys.usb.config
 
 # USB accessory configuration
 on property:sys.usb.config=accessory
@@ -387,7 +389,7 @@ on property:sys.usb.config=accessory,adb
 on property:persist.sys.usb.config=*
     setprop sys.usb.config $persist.sys.usb.config
 
-#on property:sys.usb.config=adb
+on property:sys.usb.config=adb
     write /sys/class/usb_composite/adb/enable 1
     start adbd
     setprop sys.usb.state $sys.usb.config
@@ -411,7 +413,7 @@ on property:sys.usb.config=rndis,adb
     write /sys/class/usb_composite/rndis/enable 1
     write /sys/class/usb_composite/adb/enable 1
     start adbd
-   setprop sys.usb.state $sys.usb.config
+    setprop sys.usb.state $sys.usb.config
 
 on property:sys.usb.config=mass_storage,rndis,adb
     write /sys/class/usb_composite/usb_mass_storage/enable 1

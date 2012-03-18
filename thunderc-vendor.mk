@@ -23,7 +23,6 @@ PRODUCT_PACKAGES += \
     libmm-omxcore \
     libOmxCore \
     libjni_latinime \
-	libqcomui \
     librs_jni \
     brcm_patchram_plus \
     libaudio.thunderc \
