@@ -76,6 +76,7 @@ loglevel 3
     write /proc/sys/kernel/sched_wakeup_granularity_ns 2000000
     write /proc/sys/kernel/sched_compat_yield 1
     write /proc/sys/kernel/sched_child_runs_first 0
+    write /proc/sys/kernel/randomize_va_space 2
 
 # Create cgroup mount points for process groups
     mkdir /dev/cpuctl
@@ -145,7 +146,7 @@ on post-fs
 
     write /proc/apanic_console 1
 
-    # Same reason as /data above
+     # Same reason as /data above
     chown system cache /cache
     chmod 0771 /cache
 
@@ -168,6 +169,7 @@ on post-fs
     mkdir /data/misc/bluetoothd 0770 bluetooth bluetooth
     mkdir /data/misc/bluetooth 0770 system system
     mkdir /data/misc/keystore 0700 keystore keystore
+    mkdir /data/misc/keychain 0771 system system
     mkdir /data/misc/vpn 0770 system system
     mkdir /data/misc/systemkeys 0700 system system
     mkdir /data/misc/vpn/profiles 0770 system system
@@ -388,39 +390,48 @@ on property:sys.usb.config=accessory,adb
 # when changing the default configuration
 on property:persist.sys.usb.config=*
     setprop sys.usb.config $persist.sys.usb.config
+	
+#on property:sys.usb.config=adb
+#    write /sys/class/usb_composite/adb/enable 1
+#    start adbd
+#    setprop sys.usb.state $sys.usb.config
 
-on property:sys.usb.config=adb
-    write /sys/class/usb_composite/adb/enable 1
-    start adbd
-    setprop sys.usb.state $sys.usb.config
+#on property:sys.usb.config=mass_storage
+#    write /sys/class/usb_composite/usb_mass_storage/enable 1
+#    start adbd
+#    setprop sys.usb.state $sys.usb.config
 
-on property:sys.usb.config=mass_storage
-    write /sys/class/usb_composite/usb_mass_storage/enable 1
-    start adbd
-    setprop sys.usb.state $sys.usb.config
+#on property:sys.usb.config=mass_storage,adb
+#    write /sys/class/usb_composite/usb_mass_storage/enable 1
+#    write /sys/class/usb_composite/adb/enable 1
+#    start adbd
+#    setprop sys.usb.state $sys.usb.config
 
-on property:sys.usb.config=mass_storage,adb
-    write /sys/class/usb_composite/usb_mass_storage/enable 1
-    write /sys/class/usb_composite/adb/enable 1
-    start adbd
-    setprop sys.usb.state $sys.usb.config
+#on property:sys.usb.config=rndis
+#    write /sys/class/usb_composite/rndis/enable 1
 
-on property:sys.usb.config=rndis
-    write /sys/class/usb_composite/rndis/enable 1
-    setprop sys.usb.state $sys.usb.config
 
-on property:sys.usb.config=rndis,adb
-    write /sys/class/usb_composite/rndis/enable 1
-    write /sys/class/usb_composite/adb/enable 1
-    start adbd
-    setprop sys.usb.state $sys.usb.config
+#    setprop sys.usb.state $sys.usb.config
 
-on property:sys.usb.config=mass_storage,rndis,adb
-    write /sys/class/usb_composite/usb_mass_storage/enable 1
-    write /sys/class/usb_composite/rndis/enable 1
-    write /sys/class/usb_composite/adb/enable 1
-    start adbd
-    setprop sys.usb.state $sys.usb.config
+#on property:sys.usb.config=rndis,adb
+#    write /sys/class/usb_composite/rndis/enable 1
+#    write /sys/class/usb_composite/adb/enable 1
+#    start adbd
+#    setprop sys.usb.state $sys.usb.config
+
+#on property:sys.usb.config=mass_storage,rndis,adb
+
+
+
+
+
+
+#    write /sys/class/usb_composite/usb_mass_storage/enable 1
+#    write /sys/class/usb_composite/rndis/enable 1
+#    write /sys/class/usb_composite/adb/enable 1
+#    start adbd
+#    setprop sys.usb.state $sys.usb.config
+#
 
 ## Daemon processes to be run by init.
 ##
@@ -457,6 +468,7 @@ on property:service.adb.root=1
     write /sys/class/android_usb/android0/enable 0
     restart adbd
     write /sys/class/android_usb/android0/enable 1
+	
 on property:persist.service.adb.enable=1
     start adbd
 
@@ -552,14 +564,14 @@ service installd /system/bin/installd
 service racoon /system/bin/racoon
     socket racoon stream 600 system system
     # racoon will setuid to vpn after getting necessary resources.
-    group net_admin
+    group vpn net_admin inet
     disabled
     oneshot
 
 service mtpd /system/bin/mtpd
     socket mtpd stream 600 system system
     user vpn
-    group vpn net_admin net_raw
+    group vpn net_admin inet net_raw
     disabled
     oneshot
 

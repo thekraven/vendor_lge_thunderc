@@ -69,6 +69,16 @@ service wpa_supplicant /system/bin/wpa_supplicant -Dwext -iwlan0 -c/data/misc/wi
 # Wakelock debug
     write /sys/module/wakelock/parameters/debug_mask 7
 
+#USB
+    import init.thunderg.usb.rc
+
+on fs
+# framebuffer permission for copybit
+    chmod 0666 /dev/graphics/fb0
+
+	
+## Set proper baseband version after getting the dummy from RIL
+on property:gsm.version.baseband=V07u-000-000-MAR-23-2009    start setapversion
 
 
 on property:dev.bootcomplete=1
