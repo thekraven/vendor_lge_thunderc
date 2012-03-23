@@ -22,13 +22,16 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     libmm-omxcore \
     libOmxCore \
-    libjni_latinime \
-    librs_jni \
     brcm_patchram_plus \
-    libaudio.thunderc \
-    copybit.thunderc \
-    gralloc.thunderc \
-    sensors.thunderc \
+    libgenlock \
+    libmemalloc \
+    libopencorehw \
+    liboverlay \
+    libQcomUI \
+    libstagefrighthw \
+    libtilerenderer \
+    audio_policy.thunderc \
+    audio.primary.thunderc \
     lights.thunderc \
     gps.thunderc \
     bash \
@@ -39,7 +42,15 @@ PRODUCT_PACKAGES += \
     dump_image \
     thunder_keypad.kcm.bin \
     com.android.future.usb.accessory \
-    bdaddr_read
+    hwaddrs \
+    lgapversion \
+    # bdaddr_read \
+	# libaudio.thunderc \
+	# gralloc.thunderc \
+	# copybit.thunderc \
+	#     sensors.thunderc \
+	#libjni_latinime \
+    #librs_jni \
 
 PRODUCT_PACKAGES += \
     Provision \
@@ -51,7 +62,6 @@ PRODUCT_PACKAGES += \
 
     
 PRODUCT_COPY_FILES += \
-    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/apns-conf.xml:system/etc/apns-conf.xml \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/gps.conf:system/etc/gps.conf \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/permissions/android.hardware.microphone.xml:system/etc/permissions/android.hardware.microphone.xml \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/01_qcomm_omx.cfg:system/etc/01_qcomm_omx.cfg \
