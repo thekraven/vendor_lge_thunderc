@@ -26,8 +26,6 @@ PRODUCT_PACKAGES += \
     librs_jni \
     brcm_patchram_plus \
 	libaudio.thunderc \
-    audio_policy.thunderc \
-    audio.primary.thunderc \
     copybit.thunderc \
     gralloc.thunderc \
     sensors.thunderc \
@@ -43,6 +41,8 @@ PRODUCT_PACKAGES += \
     com.android.future.usb.accessory \
 	hwaddrs \
     lgapversion \
+	#audio_policy.thunderc \
+    #audio.primary.thunderc \
 
 PRODUCT_PACKAGES += \
     Provision \
