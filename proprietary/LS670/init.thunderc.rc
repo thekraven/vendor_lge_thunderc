@@ -1,6 +1,13 @@
 on boot-pause
     exec sbin/chargerlogo
 
+service bootlogo /sbin/bootlogo
+    user root
+    group root
+    oneshot
+
+on early-boot
+    start bootlogo
 on boot
 
     mkdir /data/radio 0770 radio radio
