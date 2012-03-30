@@ -446,8 +446,8 @@ service console /system/bin/sh
 
 on property:ro.secure=0
     start console
-on property:ro.debuggable=1
-    start console
+#on property:ro.debuggable=1
+#    start console
 
 # adbd is controlled by the persist.service.adb.enable system property
 service adbd /sbin/adbd
@@ -464,10 +464,17 @@ on property:ro.kernel.qemu=1
 # here when adbd sets the service.adb.root property to 1.  We also restart adbd here
 # rather than waiting for init to notice its death and restarting it so the timing
 # of USB resetting and adb restarting more closely matches the previous behavior.
-on property:service.adb.root=1
-    write /sys/class/android_usb/android0/enable 0
-    restart adbd
-    write /sys/class/android_usb/android0/enable 1
+#on property:service.adb.root=1
+#    write /sys/class/android_usb/android0/enable 0
+#    restart adbd
+#    write /sys/class/android_usb/android0/enable 1
+	
+on property:persist.service.adb.enable=1 
+    start adbd 
+ 
+on property:persist.service.adb.enable=0 
+    stop adbd 
+
 	
 on property:persist.service.adb.enable=1
     start adbd

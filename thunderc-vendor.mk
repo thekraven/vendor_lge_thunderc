@@ -4,33 +4,44 @@ WITH_WINDOWS_MEDIA := true
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.dexopt-data-only=1 \
 
-#PRODUCT_PACKAGES += \
-#    libmm-omxcore \
-#    libOmxCore \
-#    libjni_latinime \
-#    librs_jni \
-#    libgps \
-#    libloc \
-#    libcommondefs \
-#    libloc-rpc \
-#    brcm_patchram_plus \
-#    libaudio.thunderc \
-#    copybit.thunderc \
-#    gralloc.thunderc \
-#    gps.thunderc \
-
+# Audio
 PRODUCT_PACKAGES += \
-    libmm-omxcore \
+    audio_policy.thunderc \
+    audio.primary.thunderc
+
+# Display
+PRODUCT_PACKAGES += \
+    libgenlock \
+    libmemalloc \
+    liboverlay \
+    libQcomUI \
+    libtilerenderer \
+    libopencorehw \
+
+# QCOM OMX
+PRODUCT_PACKAGES += \
+    libstagefrighthw \
     libOmxCore \
+    libmm-omxcore \
+    libdivxdrmdecrypt \
+    libOmxVdec \
+    libOmxVenc
+
+# Misc
+PRODUCT_PACKAGES += \
+    com.android.future.usb.accessory \
+    gps.thunderc \
+    lights.thunderc \
+    hwaddrs \
+    lgapversion
+	
+PRODUCT_PACKAGES += \
     libjni_latinime \
     librs_jni \
     brcm_patchram_plus \
-	libaudio.thunderc \
     copybit.thunderc \
     gralloc.thunderc \
     sensors.thunderc \
-    lights.thunderc \
-    gps.thunderc \
     bash \
     nano \
     e2fsck \
@@ -38,11 +49,6 @@ PRODUCT_PACKAGES += \
     erase_image \
     dump_image \
     thunder_keypad.kcm.bin \
-    com.android.future.usb.accessory \
-	hwaddrs \
-    lgapversion \
-	#audio_policy.thunderc \
-    #audio.primary.thunderc \
 
 PRODUCT_PACKAGES += \
     Provision \
