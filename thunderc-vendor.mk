@@ -33,6 +33,7 @@ PRODUCT_PACKAGES += \
     gps.thunderc \
     lights.thunderc \
     hwaddrs \
+	hcitool \
     lgapversion
 	
 PRODUCT_PACKAGES += \

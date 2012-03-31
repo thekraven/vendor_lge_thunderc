@@ -446,8 +446,8 @@ service console /system/bin/sh
 
 on property:ro.secure=0
     start console
-#on property:ro.debuggable=1
-#    start console
+on property:ro.debuggable=1
+    start console
 
 # adbd is controlled by the persist.service.adb.enable system property
 service adbd /sbin/adbd
@@ -474,13 +474,6 @@ on property:persist.service.adb.enable=1
  
 on property:persist.service.adb.enable=0 
     stop adbd 
-
-	
-on property:persist.service.adb.enable=1
-    start adbd
-
-on property:persist.service.adb.enable=0
-    stop adbd
 
 service servicemanager /system/bin/servicemanager
     user system
