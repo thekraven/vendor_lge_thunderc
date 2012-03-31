@@ -68,7 +68,6 @@ PRODUCT_COPY_FILES += \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/MELFAS_FIRM.bin:system/etc/MELFAS_FIRM.bin \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/wiperconfig.xml:system/etc/wiperconfig.xml \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/loc_parameter.ini:system/etc/loc_parameter.ini \
-    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/init.rc:root/init.rc \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/ueventd.rc:root/ueventd.rc \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/media_profiles.xml:system/etc/media_profiles.xml \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/tweaks.sh:system/etc/tweaks.sh \
@@ -77,7 +76,7 @@ PRODUCT_COPY_FILES += \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/hosts:system/etc/hosts
     
 #    vendor/lge/thunderc/proprietary/lib/libsurfaceflinger.so:system/lib/libsurfaceflinger.so
-
+#       vendor/lge/thunderc/proprietary/$(SUB_MODEL)/init.rc:root/init.rc 
 include vendor/lge/thunderc/packages.mk
 
 #PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=thunderc BUILD_UTC_DATE=0 BUILD_ID=GRI40 BUILD_DISPLAY_ID=GRJ90 BUILD_FINGERPRINT=lge/thunderc/thunderc:2.3.3/GRI40/LG-P500-V20g.19C11F164C:user/release-keys PRIVATE_BUILD_DESC="thunderc-user 2.3.3 GRI40 LG-P500-V20g.19C11F164C release-keys"
