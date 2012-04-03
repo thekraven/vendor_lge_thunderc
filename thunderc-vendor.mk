@@ -6,8 +6,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Audio
 PRODUCT_PACKAGES += \
-    audio_policy.thunderc \
-    audio.primary.thunderc \
+    audio_policy.msm7x27 \
+    audio.primary.msm7x27 \
 	audio.a2dp.default \
     libaudioutils
 
@@ -32,19 +32,18 @@ PRODUCT_PACKAGES += \
 
 # Misc
 PRODUCT_PACKAGES += \
-    camera.thunderc \
-    gralloc.msm7x27 \
-    copybit.msm7x27 \
     lights.thunderc \
-    hwcomposer.msm7x27 \
-    copybit.thunderc \
     sensors.thunderc \
     com.android.future.usb.accessory \
     gps.thunderc \
     hwaddrs \
 	hcitool \
-    lgapversion
-	
+    lgapversion \
+	hwcomposer.msm7x27 \
+    gralloc.msm7x27 \
+    copybit.msm7x27 \
+	#       camera.thunderc \	
+
 PRODUCT_PACKAGES += \
     libjni_latinime \
     librs_jni \
@@ -54,7 +53,7 @@ PRODUCT_PACKAGES += \
     flash_image \
     erase_image \
     dump_image \
-    thunder_keypad.kcm.bin \
+    thunderc_keypad.kcm.bin \
 
 PRODUCT_PACKAGES += \
     Provision \
