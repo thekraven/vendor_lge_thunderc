@@ -8,9 +8,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     audio_policy.msm7x27 \
     audio.primary.msm7x27 \
-	audio.a2dp.default \
-    libaudioutils
-
+    libaudioutils \
+	#audio.a2dp.default \
 # Display
 PRODUCT_PACKAGES += \
     libgenlock \
@@ -42,7 +41,7 @@ PRODUCT_PACKAGES += \
 	hwcomposer.msm7x27 \
     gralloc.msm7x27 \
     copybit.msm7x27 \
-	#       camera.thunderc \	
+#	camera.msm7x27 \	
 
 PRODUCT_PACKAGES += \
     libjni_latinime \
@@ -76,20 +75,19 @@ PRODUCT_COPY_FILES += \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/MELFAS_FIRM.bin:system/etc/MELFAS_FIRM.bin \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/wiperconfig.xml:system/etc/wiperconfig.xml \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/loc_parameter.ini:system/etc/loc_parameter.ini \
-	vendor/lge/thunderc/proprietary/$(SUB_MODEL)/init.rc:root/init.rc \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/ueventd.rc:root/ueventd.rc \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/media_profiles.xml:system/etc/media_profiles.xml \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/tweaks.sh:system/etc/tweaks.sh \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/setwifi.sh:system/etc/setwifi.sh\
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/init.d:system/etc/init.d \
-	vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/usr/keylayout/thunderc_keypad.kl:system/usr/keylayout/thunderc_keypad.kl \
-    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/usr/keylayout/7k_handset.kl:system/usr/keylayout/7k_handset.kl \
-	vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/usr/keylayout/Generic.kl:system/usr/keylayout/Generic.kl \
-    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/usr/keychars/thunderc_keypad.kcm.bin:system/usr/keychars/thunderc_keypad.kcm.bin \
-    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/hosts:system/etc/hosts
-    
-#    vendor/lge/thunderc/proprietary/lib/libsurfaceflinger.so:system/lib/libsurfaceflinger.so
-#       vendor/lge/thunderc/proprietary/$(SUB_MODEL)/init.rc:root/init.rc 
+    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/hosts:system/etc/hosts \
+	vendor/lge/thunderc/proprietary/$(SUB_MODEL)/init.rc:root/init.rc \
+#	vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/usr/keylayout/thunderc_keypad.kl:system/usr/keylayout/thunderc_keypad.kl \
+#    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/usr/keylayout/7k_handset.kl:system/usr/keylayout/7k_handset.kl \
+#	vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/usr/keylayout/Generic.kl:system/usr/keylayout/Generic.kl \
+#    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/usr/keychars/thunderc_keypad.kcm.bin:system/usr/keychars/thunderc_keypad.kcm.bin \
+#    vendor/lge/thunderc/proprietary/lib/libsurfaceflinger.so:system/lib/libsurfaceflinger.so \
+
 
 include vendor/lge/thunderc/packages.mk
 
