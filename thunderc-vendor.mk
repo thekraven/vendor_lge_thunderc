@@ -9,7 +9,7 @@ PRODUCT_PACKAGES += \
     audio_policy.msm7x27 \
     audio.primary.msm7x27 \
     libaudioutils \
-	#audio.a2dp.default \
+	audio.a2dp.default \
 # Display
 PRODUCT_PACKAGES += \
     libgenlock \
@@ -31,6 +31,7 @@ PRODUCT_PACKAGES += \
 
 # Misc
 PRODUCT_PACKAGES += \
+    libcamera \
     lights.thunderc \
     sensors.thunderc \
     com.android.future.usb.accessory \
@@ -41,7 +42,7 @@ PRODUCT_PACKAGES += \
 	hwcomposer.msm7x27 \
     gralloc.msm7x27 \
     copybit.msm7x27 \
-#	camera.msm7x27 \	
+	camera.msm7x27 \	
 
 PRODUCT_PACKAGES += \
     libjni_latinime \
