@@ -25,9 +25,18 @@ on early-fs
     mkdir /data 0771 system system
     mkdir /cache 0770 system cache
     mkdir /devlog 0700 root root
+	
 on boot-pause
     exec sbin/chargerlogo
 
+service bootlogo /sbin/bootlogo
+    user root
+    group root
+    oneshot
+
+on early-boot
+    start bootlogo
+	
 on boot
 
     mkdir /data/radio 0770 radio radio
