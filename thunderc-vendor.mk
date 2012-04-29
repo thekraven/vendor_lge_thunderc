@@ -6,10 +6,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Audio
 PRODUCT_PACKAGES += \
-    audio_policy.msm7x27 \
-    audio.primary.msm7x27 \
-    libaudioutils \
+    audio_policy.thunderc \
+    audio.primary.thunderc \
 	audio.a2dp.default \
+    #libaudioutils \
+
 # Display
 PRODUCT_PACKAGES += \
     libgenlock \
@@ -18,16 +19,21 @@ PRODUCT_PACKAGES += \
     libQcomUI \
     libtilerenderer \
     libopencorehw \
-	dexpreopt \
-
+    gralloc.msm7x27 \
+    copybit.msm7x27 \
+    hwcomposer.msm7x27
+	#dexpreopt \
+	
 # QCOM OMX
 PRODUCT_PACKAGES += \
-    libstagefrighthw \
-    libOmxCore \
-    libmm-omxcore \
+	libstagefrighthw \
     libdivxdrmdecrypt \
     libOmxVdec \
-    libOmxVenc
+    libOmxVenc \
+    libOmxAacEnc \
+    libOmxAmrEnc \
+    libmm-omxcore \
+    libOmxCore
 
 # Misc
 PRODUCT_PACKAGES += \
@@ -38,10 +44,7 @@ PRODUCT_PACKAGES += \
     hwaddrs \
 	hcitool \
     lgapversion \
-	hwcomposer.msm7x27 \
-    gralloc.msm7x27 \
-    copybit.msm7x27 \
-#	camera.msm7x27 \
+	camera.thunderc \
 #   libcamera \	
 
 PRODUCT_PACKAGES += \
@@ -63,11 +66,6 @@ PRODUCT_PACKAGES += \
     QuickSearchBox \
     FileManager \
 	
-
-# we have enough storage space to hold precise GC data 
-PRODUCT_TAGS += dalvik.gc.type-precise 
-
-
     
 PRODUCT_COPY_FILES += \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/gps.conf:system/etc/gps.conf \
