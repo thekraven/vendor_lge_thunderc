@@ -43,6 +43,7 @@ PRODUCT_PACKAGES += \
     gps.thunderc \
     hwaddrs \
 	hcitool \
+	hciconfig \
     lgapversion \
 	camera.thunderc \
 #   libcamera \	
@@ -62,7 +63,6 @@ PRODUCT_PACKAGES += \
     Provision \
     GoogleSearch \
     LatinIME \
-    hcitool \
     QuickSearchBox \
     FileManager \
 	
@@ -81,10 +81,10 @@ PRODUCT_COPY_FILES += \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/init.d:system/etc/init.d \
 	vendor/lge/thunderc/proprietary/$(SUB_MODEL)/init.rc:root/init.rc \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/hosts:system/etc/hosts \
-	vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/usr/keylayout/thunderc_keypad.kl:system/usr/keylayout/thunderc_keypad.kl \
-    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/usr/keylayout/7k_handset.kl:system/usr/keylayout/7k_handset.kl \
-	vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/usr/keylayout/Generic.kl:system/usr/keylayout/Generic.kl \
-    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/usr/keychars/thunderc_keypad.kcm.bin:system/usr/keychars/thunderc_keypad.kcm.bin \
+	#vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/usr/keylayout/thunderc_keypad.kl:system/usr/keylayout/thunderc_keypad.kl \
+    #vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/usr/keylayout/7k_handset.kl:system/usr/keylayout/7k_handset.kl \
+	#vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/usr/keylayout/Generic.kl:system/usr/keylayout/Generic.kl \
+    #vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/usr/keychars/thunderc_keypad.kcm.bin:system/usr/keychars/thunderc_keypad.kcm.bin \
 #    vendor/lge/thunderc/proprietary/lib/libsurfaceflinger.so:system/lib/libsurfaceflinger.so \
 
 

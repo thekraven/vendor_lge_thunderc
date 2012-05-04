@@ -25,18 +25,10 @@ on early-fs
     mkdir /data 0771 system system
     mkdir /cache 0770 system cache
     mkdir /devlog 0700 root root
-	
 on boot-pause
     exec sbin/chargerlogo
-
-service bootlogo /sbin/bootlogo
-    user root
-    group root
-    oneshot
-
-on early-boot
     start bootlogo
-	
+
 on boot
 
     mkdir /data/radio 0770 radio radio
@@ -88,6 +80,10 @@ on boot
     setprop wifi.interface wlan0
     mkdir /data/misc/dhcp 0777 system system
 
+service bootlogo /sbin/bootlogo
+    user root
+    group root
+    oneshot
 service qmuxd /system/bin/qmuxd
     user radio
     group radio
@@ -174,17 +170,7 @@ on fs
 # framebuffer permission for copybit
     chmod 0666 /dev/graphics/fb0
 
-service setapversion /system/bin/lgapversion 
-    class main 
-    user radio 
-    group radio 
-    disabled 
-    oneshot 
+	
 
 on property:dev.bootcomplete=1
     exec /system/bin/hwaddrs
-	
-
-## Set proper baseband version after getting the dummy from RIL 
-on property:gsm.version.baseband=V07u-000-000-MAR-23-2009 
-    start setapversion 
