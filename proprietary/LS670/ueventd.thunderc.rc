@@ -160,7 +160,7 @@
 
 # video encoder on 720p-enabled 8k targets
 /dev/pmem_venc            0660   system     audio
-#/dev/msm_vidc*            0660   system     graphics
+/dev/msm_vidc*            0660   system     graphics
 /dev/oncrpc/*             0660  system	     qcom_oncrpc
 /dev/ami304hal		  0640  compass	     system
 /dev/ami304daemon	  0640  compass	     system
