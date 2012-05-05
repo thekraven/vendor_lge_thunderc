@@ -73,11 +73,19 @@ on post-fs-data
 
 # wifi
   mkdir /data/misc/wifi 0770 wifi wifi
-  mkdir /data/misc/wifi/sockets 0770 wifi wifi
-  mkdir /data/misc/dhcp 0770 dhcp dhcp
-  chown dhcp dhcp /data/misc/dhcp
+#  mkdir /data/misc/dhcp 0770 dhcp dhcp
 
-# last line for post-fs-data
+
+#  chown dhcp dhcp /data/misc/dhcp
+  
+# wifi
+  mkdir /data/misc 01771 system misc
+#  mkdir /data/misc/wifi 0770 system wifi
+  mkdir /data/misc/wifi/sockets
+  chmod 770 /data/misc/wifi/sockets
+  mkdir /data/system 0775 system system  
+
+
   setprop vold.post_fs_data_done 1
   
 on boot
@@ -114,14 +122,15 @@ on boot
     chown system system /sys/class/leds/lcd-backlight/brightness
     chown system system /sys/class/leds/keyboard-backlight/brightness
 
-# wifi
-  mkdir /data/misc 01771 system misc
-  mkdir /data/misc/wifi 0770 system wifi
-  mkdir /data/misc/wifi/sockets
-  chmod 770 /data/misc/wifi/sockets
-  mkdir /data/misc/dhcp 0770 dhcp dhcp
-  chown dhcp dhcp /data/misc/dhcp
-  mkdir /data/system 0775 system system
+
+
+
+
+
+
+
+
+
   
 ## LGE's bluetooth stuff
 # bluetooth permissions
@@ -135,11 +144,11 @@ on boot
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
     write /sys/class/rfkill/rfkill0/state 0
 
-# WIFI
-    mkdir /data/misc/wifi/sockets 0770 wifi wifi
-#    setprop wifi.supplicant_scan_interval 20
-#    setprop wifi.interface wlan0
-#    mkdir /data/misc/dhcp 0777 system system
+
+
+
+
+
 
 # Fast dormancy settings
     setprop ro.ril.fast.dormancy.rule 1
