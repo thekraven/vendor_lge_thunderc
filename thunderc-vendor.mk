@@ -9,8 +9,14 @@ PRODUCT_PACKAGES += \
     audio_policy.thunderc \
     audio.primary.thunderc \
 	audio.a2dp.default \
-    #libaudioutils \
+    libaudioutils \
 
+# Tiny alsa 
+PRODUCT_PACKAGES += libtinyalsa  
+PRODUCT_PACKAGES += tinyplay  
+PRODUCT_PACKAGES += tinycap 
+PRODUCT_PACKAGES += tinymix 
+	
 # Display
 PRODUCT_PACKAGES += \
     libgenlock \
@@ -27,13 +33,13 @@ PRODUCT_PACKAGES += \
 # QCOM OMX
 PRODUCT_PACKAGES += \
 	libstagefrighthw \
-    libdivxdrmdecrypt \
-    libOmxVdec \
-    libOmxVenc \
-    libOmxAacEnc \
-    libOmxAmrEnc \
-    libmm-omxcore \
-    libOmxCore
+    libOmxCore \
+#    libdivxdrmdecrypt \
+#    libOmxVdec \
+#    libOmxVenc \
+#    libOmxAacEnc \
+#    libOmxAmrEnc \
+#    libmm-omxcore \
 
 # Misc
 PRODUCT_PACKAGES += \
