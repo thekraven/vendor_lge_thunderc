@@ -1,7 +1,16 @@
 #import init.thunderc.usb.rc
-
+	
 on boot-pause
     exec sbin/chargerlogo
+
+service bootlogo /sbin/bootlogo
+    user root
+    group root
+    oneshot
+
+on early-boot
+    start bootlogo
+
 	
 on early-init
     mkdir /system
@@ -121,16 +130,6 @@ on boot
     chown system system /sys/class/leds/flashlight/brightness
     chown system system /sys/class/leds/lcd-backlight/brightness
     chown system system /sys/class/leds/keyboard-backlight/brightness
-
-
-
-
-
-
-
-
-
-
   
 ## LGE's bluetooth stuff
 # bluetooth permissions
@@ -144,12 +143,6 @@ on boot
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
     write /sys/class/rfkill/rfkill0/state 0
 
-
-
-
-
-
-
 # Fast dormancy settings
     setprop ro.ril.fast.dormancy.rule 1
     setprop ro.ril.fd.scron.timeout 4
@@ -157,7 +150,6 @@ on boot
 	
 # Wakelock debug
     write /sys/module/wakelock/parameters/debug_mask 7
-
 	
 on fs
 # framebuffer permission for copybit
@@ -166,11 +158,6 @@ on fs
 service chargerlogo /sbin/chargerlogo
     class charger
     user root
-	
-service bootlogo /sbin/bootlogo
-    user root
-    group root
-    oneshot
 	
 service qmuxd /system/bin/qmuxd
     user radio
