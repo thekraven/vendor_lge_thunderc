@@ -49,7 +49,7 @@ PRODUCT_PACKAGES += \
 	hcitool \
 	hciconfig \
     lgapversion \
-	camera.thunderc \
+	camera.msm7x27  \
 	libcamera \
 #   libcamera \	
 
