@@ -34,12 +34,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	libstagefrighthw \
     libOmxCore \
-#    libdivxdrmdecrypt \
-#    libOmxVdec \
-#    libOmxVenc \
-#    libOmxAacEnc \
-#    libOmxAmrEnc \
-#    libmm-omxcore \
+    libdivxdrmdecrypt \
+    libOmxVdec \
+    libOmxVenc \
+    libmm-omxcore \
 
 # Misc
 PRODUCT_PACKAGES += \
@@ -52,6 +50,7 @@ PRODUCT_PACKAGES += \
 	hciconfig \
     lgapversion \
 	camera.thunderc \
+	libcamera \
 #   libcamera \	
 
 PRODUCT_PACKAGES += \
