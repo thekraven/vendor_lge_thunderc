@@ -1,6 +1,6 @@
-PRODUCT_COPY_FILES += \
-vendor/lge/thunderc/packages/lib/libspeech.so:system/lib/libspeech.so \
-vendor/lge/thunderc/packages/lib/libvoicesearch.so:system/lib/libvoicesearch.so \
+#PRODUCT_COPY_FILES += \
+#vendor/lge/thunderc/packages/lib/libspeech.so:system/lib/libspeech.so \
+#vendor/lge/thunderc/packages/lib/libvoicesearch.so:system/lib/libvoicesearch.so \
 
 #BUILD_PREBUILT += \
 #vendor/lge/thunderc/packages/app/MarketUpdater.apk:system/app/MarketUpdater.apk \
@@ -18,5 +18,5 @@ vendor/lge/thunderc/packages/lib/libvoicesearch.so:system/lib/libvoicesearch.so 
 #vendor/lge/thunderc/packages/app/Vending.apk:system/app/Vending.apk \
 #vendor/lge/thunderc/packages/app/GoogleFeedback.apk:system/app/GoogleFeedback.apk \
 
-PRODUCT_COPY_FILES += \
-vendor/lge/thunderc/packages/etc/permissions/features.xml:system/etc/permissions/features.xml \
+#PRODUCT_COPY_FILES += \
+#vendor/lge/thunderc/packages/etc/permissions/features.xml:system/etc/permissions/features.xml \
