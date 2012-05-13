@@ -191,9 +191,9 @@ service wpa_supplicant /system/bin/wpa_supplicant -Dwext -iwlan0 -c/data/misc/wi
     disabled
     oneshot
 
-service dhcpservice /system/bin/netcfg wlan0 dhcp
-    class main
-    oneshot
+#service dhcpservice /system/bin/netcfg wlan0 dhcp
+#    class main
+#    oneshot
 service setapversion /system/bin/lgapversion
     class main
     user radio
@@ -232,7 +232,7 @@ service map /system/bin/sdptool add --channel=16 MAS
     class main
     user bluetooth
     group bluetooth net_bt_admin
-    disabled
+    disabledf
     oneshot
 
 service qcom-sh /system/bin/sh /init.qcom.sh
@@ -260,9 +260,6 @@ service drm /system/bin/drmserver
     enabled
     oneshot
 
-## Stop dhcpcd when wifi was stopped
-on property:init.svc.wpa_supplicant=stopped
-   stop dhcpcd_wlan0
 
 ## start qcom-post-boot
 on property:init.svc.bootanim=stopped
@@ -274,8 +271,8 @@ on property:service.brcm.bt.mac=*
 
 ## Restart dhcpservice
 on property:dev.bootcomplete=1
-   stop dhcpservice
-   start dhcpservice
+#   stop dhcpservice
+#   start dhcpservice
 
   ## Set proper baseband version after getting the dummy from RIL
 on property:gsm.version.baseband=V07u-000-000-MAR-23-2009
