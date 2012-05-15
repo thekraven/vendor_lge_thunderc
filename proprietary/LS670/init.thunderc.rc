@@ -93,6 +93,8 @@ on post-fs-data
   chmod 770 /data/misc/wifi/sockets
   mkdir /data/system 0775 system system  
 
+on property:sys.boot_completed=1  
+  start bdaddr  
 
   setprop vold.post_fs_data_done 1
   
@@ -137,6 +139,10 @@ on boot
     setprop ro.ril.fd.scron.timeout 4
     setprop ro.ril.fd.scroff.timeout 3
 	
+  # Set our own bdaddr path  
+   setprop ro.bt.bdaddr_path /data/bdaddr  
+
+	
 # Wakelock debug
     write /sys/module/wakelock/parameters/debug_mask 7
 	
@@ -163,6 +169,12 @@ service hciattach /system/bin/sh /system/bin/init.qcom.bt.sh
     user bluetooth
     group bluetooth net_bt_admin
     disabled
+	
+service bdaddr /system/bin/bdaddr_read  
+    class main  
+    user root  
+    disabled  
+    oneshot  
 
 service dhcpcd_wlan0 /system/bin/dhcpcd -BKA wlan0
     class core
@@ -259,14 +271,14 @@ on property:init.svc.bootanim=stopped
     start qcom-post-boot
 
 ## Read BT address
-on property:service.brcm.bt.mac=*
-    exec /system/bin/hwaddrs
-
-## Restart dhcpservice
-on property:dev.bootcomplete=1
-#   stop dhcpservice
-#   start dhcpservice
+#on property:service.brcm.bt.mac=*
 
   ## Set proper baseband version after getting the dummy from RIL
 on property:gsm.version.baseband=V07u-000-000-MAR-23-2009
    start setapversion
+   
+## Restart dhcpservice
+#on property:dev.bootcomplete=1
+#    exec /system/bin/hwaddrs 
+#   stop dhcpservice
+#   start dhcpservice
