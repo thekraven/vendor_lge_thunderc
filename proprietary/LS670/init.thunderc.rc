@@ -76,21 +76,17 @@ on post-fs
   setprop wifi.supplicant_scan_interval 20
   setprop wifi.interface wlan0
   mkdir /data/misc/dhcp 0777 system system
+#  mkdir /data/misc/dhcp 0770 dhcp dhcp
+#  chown dhcp dhcp /data/misc/dhcp
 
 on post-fs-data
 
 # wifi
   mkdir /data/misc/wifi 0770 wifi wifi
-#  mkdir /data/misc/dhcp 0770 dhcp dhcp
-
-
-#  chown dhcp dhcp /data/misc/dhcp
-  
-# wifi
   mkdir /data/misc 01771 system misc
 #  mkdir /data/misc/wifi 0770 system wifi
-  mkdir /data/misc/wifi/sockets
-  chmod 770 /data/misc/wifi/sockets
+#  mkdir /data/misc/wifi/sockets
+#  chmod 770 /data/misc/wifi/sockets
   mkdir /data/system 0775 system system  
 
 on property:sys.boot_completed=1  

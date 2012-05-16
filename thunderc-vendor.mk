@@ -29,7 +29,7 @@ PRODUCT_PACKAGES += \
     copybit.msm7x27 \
     hwcomposer.msm7x27 \
     camera.thunderc  \
-	#dexpreopt \
+	dexpreopt \
 	
 # QCOM OMX
 PRODUCT_PACKAGES += \
