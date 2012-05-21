@@ -1,7 +1,10 @@
 #import init.thunderc.usb.rc
-	
+
 on boot-pause
-    exec sbin/chargerlogo
+    exec sbin/chargerlogo	
+#on charger
+#    class_start charger
+#    exec sbin/chargerlogo
 
 service bootlogo /sbin/bootlogo
     user root
@@ -90,14 +93,14 @@ on post-fs-data
   mkdir /data/system 0775 system system  
 
 on property:sys.boot_completed=1  
-  start bdaddr  
+#  start bdaddr  
 
   setprop vold.post_fs_data_done 1
   
 on boot
 
 # radio
-  mkdir /data/radio 0770 radio radio
+#  mkdir /data/radio 0770 radio radio
   chmod 2770 /data/radio
 
 # sensors
@@ -146,10 +149,10 @@ on fs
 # framebuffer permission for copybit
     chmod 0666 /dev/graphics/fb0
 
-service chargerlogo /sbin/chargerlogo
-    class charger
-    user root
-	
+#service chargerlogo /sbin/chargerlogo
+#    class charger
+#    user root
+ 
 service qmuxd /system/bin/qmuxd
     class main
     user radio
@@ -166,7 +169,7 @@ service hciattach /system/bin/sh /system/bin/init.qcom.bt.sh
     group bluetooth net_bt_admin
     disabled
 	
-service bdaddr /system/bin/bdaddr_read  
+service hwaddrs /system/bin/bdaddr_read  
     class main  
     user root  
     disabled  
@@ -274,7 +277,7 @@ on property:gsm.version.baseband=V07u-000-000-MAR-23-2009
    start setapversion
    
 ## Restart dhcpservice
-#on property:dev.bootcomplete=1
-#    exec /system/bin/hwaddrs 
+on property:dev.bootcomplete=1
+    exec /system/bin/hwaddrs 
 #   stop dhcpservice
 #   start dhcpservice
