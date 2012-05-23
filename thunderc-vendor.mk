@@ -52,6 +52,7 @@ PRODUCT_PACKAGES += \
     lgapversion \
 	Androidian \
 	bdaddr_read \
+	Apollo \
 #   libcamera \	
 #   	
 

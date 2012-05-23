@@ -1,4 +1,4 @@
-#import init.thunderc.usb.rc
+import init.thunderc.usb.rc
 
 on boot-pause
     exec sbin/chargerlogo	
@@ -154,9 +154,9 @@ on fs
 #    user root
  
 service qmuxd /system/bin/qmuxd
-    class main
+    class core
     user radio
-    group radio audio bluetooth
+    group radio audio inet bluetooth
 	
 service ami304d /system/bin/ami304d
     class main
