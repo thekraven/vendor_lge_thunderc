@@ -99,6 +99,13 @@ on property:sys.boot_completed=1
   
 on boot
 
+	# Increase the read ahead cache from 128KB to 2048KB (SD)	
+  write /sys/devices/virtual/bdi/179:0/read_ahead_kb 2048
+  #  Increase the read ahead cache from 4KB to 512KB (/data
+  write /sys/devices/virtual/mtd/mtd6/mtdblock6/queue/read_ahead_kb 512
+  #  Increase the read ahead cache from 4KB to 512KB (/system)
+  write /sys/devices/virtual/mtd/mtd6/mtdblock5/queue/read_ahead_kb 512
+
 # radio
 #  mkdir /data/radio 0770 radio radio
   chmod 2770 /data/radio
