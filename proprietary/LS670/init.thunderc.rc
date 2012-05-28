@@ -86,7 +86,9 @@ on post-fs-data
 
 # wifi
   mkdir /data/misc/wifi 0770 wifi wifi
-  mkdir /data/misc 01771 system misc
+  mkdir /data/misc/wifi/sockets 0770 wifi wifi
+  mkdir /data/misc/dhcp 0770 dhcp dhcp
+  chown dhcp dhcp /data/misc/dhcp
 #  mkdir /data/misc/wifi 0770 system wifi
 #  mkdir /data/misc/wifi/sockets
 #  chmod 770 /data/misc/wifi/sockets
@@ -127,6 +129,14 @@ on boot
   chown system system /sys/class/leds/flashlight/brightness
   chown system system /sys/class/leds/lcd-backlight/brightness
   chown system system /sys/class/leds/keyboard-backlight/brightness
+# wifi
+  mkdir /data/misc 01771 system misc
+  mkdir /data/misc/wifi 0770 system wifi
+  mkdir /data/misc/wifi/sockets
+  chmod 770 /data/misc/wifi/sockets
+  mkdir /data/misc/dhcp 0770 dhcp dhcp
+  chown dhcp dhcp /data/misc/dhcp
+  mkdir /data/system 0775 system system
   
 ## LGE's bluetooth stuff
 # bluetooth permissions
@@ -192,9 +202,6 @@ service iprenew_wlan0 /system/bin/dhcpcd -n wlan0
     disabled
     oneshot
 
-on property:init.svc.wpa_supplicant=stopped
-    stop dhcpcd_wlan0
-
 service wpa_supplicant /system/bin/wpa_supplicant -Dwext -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf
     class main
     socket wpa_wlan0 dgram 660 wifi wifi
@@ -243,7 +250,7 @@ service map /system/bin/sdptool add --channel=16 MAS
     class main
     user bluetooth
     group bluetooth net_bt_admin
-    disabledf
+    disabled
     oneshot
 
 service qcom-sh /system/bin/sh /init.qcom.sh
@@ -271,6 +278,8 @@ service drm /system/bin/drmserver
     enabled
     oneshot
 
+on property:init.svc.wpa_supplicant=stopped
+    stop dhcpcd_wlan0
 
 ## start qcom-post-boot
 on property:init.svc.bootanim=stopped
