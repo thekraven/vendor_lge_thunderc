@@ -1,10 +1,10 @@
 import init.thunderc.usb.rc
 
-#on boot-pause
-#    exec sbin/chargerlogo	
-#on charger
-#    class_start charger
-#    exec sbin/chargerlogo
+on boot-pause
+    exec charger	
+on charger
+    class_start charger
+    exec charger
 
 service bootlogo /sbin/bootlogo
     user root
@@ -281,7 +281,7 @@ service drm /system/bin/drmserver
     oneshot
 
 
-service chargerlogo /charger 
+service charger /charger 
     class charger 
     user root 
 	
