@@ -148,13 +148,39 @@ on boot
 #    mkdir /data/radio 0770 radio radio
     chmod 2770 /data/radio
 	
-	# sensors
-    mkdir /data/amit 0777 ami304d ami304d
-    chmod 0666 /data/amit/AMI306_Config.ini
-    chmod 0666 /data/amit/AMI306_Config2.ini
+	## VIBRATOR 
+    chmod 0660 /sys/class/timed_output/vibrator/amp 
 
-    chown compass system /sys/bus/i2c/drivers/proximity_gp2ap/4-0044/enable
-    chmod 0660 /sys/bus/i2c/drivers/proximity_gp2ap/4-0044/enable
+	## SENSOR
+	chown compass system /dev/ami304
+	chmod 0640 dev/ami304
+	chown compass system /dev/ami304daemon
+	chmod 0640 dev/ami304daemon
+	chown compass system /dev/ami304hal
+	chmod 0640 dev/ami304hal
+	mkdir /data/amit 0777 ami304d ami304d
+	chmod 0666 /data/amit/AMI306_Config.ini
+	chown compass system /dev/KR3DH
+	chmod 0640 /dev/KR3DH
+	chown compass system /dev/KR3DM
+	chmod 0640 /dev/KR3DM
+
+	## PROXIMITY SENSOR
+	chown compass system /sys/bus/i2c/drivers/proximity_gp2ap/4-0044/enable
+	chmod 0660 /sys/bus/i2c/drivers/proximity_gp2ap/4-0044/enable
+
+    # BACKLIGHT
+    chmod 0664 /sys/class/leds/lcd-backlight/alc
+    chown system system /sys/devices/platform/mddi_hitachi_hvga.10/lcd_onoff
+    chmod 0664 /sys/devices/platform/mddi_hitachi_hvga.10/lcd_onoff
+	
+	# sensors
+#    mkdir /data/amit 0777 ami304d ami304d
+#    chmod 0666 /data/amit/AMI306_Config.ini
+#    chmod 0666 /data/amit/AMI306_Config2.ini
+
+#    chown compass system /sys/bus/i2c/drivers/proximity_gp2ap/4-0044/enable
+#    chmod 0660 /sys/bus/i2c/drivers/proximity_gp2ap/4-0044/enable
 	
     # Set our own bdaddr path  
     setprop ro.bt.bdaddr_path /data/bdaddr
@@ -286,7 +312,7 @@ service setapversion /system/bin/lgapversion
     user radio
     group radio
     disabled
-    oneshot
+    oneshot 
 
 on property:gsm.version.baseband=V07u-000-000-MAR-23-2009
    start setapversion
