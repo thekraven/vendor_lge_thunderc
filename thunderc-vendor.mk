@@ -54,7 +54,7 @@ PRODUCT_PACKAGES += \
 	bdaddr_read \
 	Apollo \
 #   libcamera \	
-#   	
+   	
 
 PRODUCT_PACKAGES += \
     libjni_latinime \

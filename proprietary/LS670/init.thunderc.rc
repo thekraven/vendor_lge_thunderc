@@ -1,5 +1,13 @@
 import init.thunderc.usb.rc
 
+on boot-pause
+    exec charger	
+on charger
+    class_start charger
+    exec charger
+	
+on early-boot    exec /sbin/chargerlogo
+
 ###################
 ## 1: EARLY-INIT ##
 ###################
