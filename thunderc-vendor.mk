@@ -53,8 +53,9 @@ PRODUCT_PACKAGES += \
 	Androidian \
 	bdaddr_read \
 	Apollo \
-#   libcamera \	
-   	
+	CAIParts \
+    libcamera \	
+#	LegacyCamera \   	
 
 PRODUCT_PACKAGES += \
     libjni_latinime \
@@ -66,6 +67,7 @@ PRODUCT_PACKAGES += \
     erase_image \
     dump_image \
 	thunderc_keypad.kcm.bin \
+	e2fsck \
     	#bootlogo \
 PRODUCT_PACKAGES += \
     Provision \
@@ -90,6 +92,6 @@ PRODUCT_COPY_FILES += \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/hosts:system/etc/hosts \
 
 
-include vendor/lge/thunderc/packages.mk
+#include vendor/lge/thunderc/packages.mk
 
 #PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=thunderc BUILD_UTC_DATE=0 BUILD_ID=GRI40 BUILD_DISPLAY_ID=GRJ90 BUILD_FINGERPRINT=lge/thunderc/thunderc:2.3.3/GRI40/LG-P500-V20g.19C11F164C:user/release-keys PRIVATE_BUILD_DESC="thunderc-user 2.3.3 GRI40 LG-P500-V20g.19C11F164C release-keys"
