@@ -37,6 +37,9 @@ PRODUCT_PACKAGES += \
     libOmxCore \
     libdivxdrmdecrypt \
     libmm-omxcore \
+	#ffmpeg \
+	#libI420colorconvert \
+	#libstagefright_m4vh263dec \
 	#libOmxVdec \
     #libOmxVenc \
 
@@ -54,7 +57,7 @@ PRODUCT_PACKAGES += \
 	bdaddr_read \
 	Apollo \
 	CAIParts \
-    libcamera \	
+   # libcamera \	
 #	LegacyCamera \   	
 
 PRODUCT_PACKAGES += \
@@ -87,11 +90,14 @@ PRODUCT_COPY_FILES += \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/ueventd.rc:root/ueventd.rc \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/tweaks.sh:system/etc/tweaks.sh \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/setwifi.sh:system/etc/setwifi.sh\
-    vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/init.d:system/etc/init.d \
 	vendor/lge/thunderc/proprietary/$(SUB_MODEL)/init.rc:root/init.rc \
     vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/hosts:system/etc/hosts \
+	vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/liberty.bsh:system/etc/liberty.bsh \
+	vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/init.d:system/etc/init.d \
+	vendor/lge/thunderc/proprietary/$(SUB_MODEL)/system/etc/resolv.conf:system/etc/resolv.conf
+	
 
 
 #include vendor/lge/thunderc/packages.mk
 
-#PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=thunderc BUILD_UTC_DATE=0 BUILD_ID=GRI40 BUILD_DISPLAY_ID=GRJ90 BUILD_FINGERPRINT=lge/thunderc/thunderc:2.3.3/GRI40/LG-P500-V20g.19C11F164C:user/release-keys PRIVATE_BUILD_DESC="thunderc-user 2.3.3 GRI40 LG-P500-V20g.19C11F164C release-keys"
+#PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=LS670 BUILD_UTC_DATE=0 BUILD_ID=GRI40 BUILD_DISPLAY_ID=GRJ90 BUILD_FINGERPRINT=lge/thunderc/thunderc:2.3.3/GRI40/LG-P500-V20g.19C11F164C:user/release-keys PRIVATE_BUILD_DESC="thunderc-user 2.3.3 GRI40 LG-P500-V20g.19C11F164C release-keys"
