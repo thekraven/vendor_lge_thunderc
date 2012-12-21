@@ -1,10 +1,11 @@
-import init.thunderc.usb.rc
+import /system/etc/init.thunderc.usb.rc
+import init.qcom.usb.rc
 
-on boot-pause
-    exec charger	
-on charger
-    class_start charger
-    exec charger
+#on boot-pause
+#    exec charger	
+#on charger
+#    class_start charger
+#    exec charger
 	
 on early-boot
     exec /sbin/chargerlogo
@@ -188,6 +189,7 @@ on boot
     mkdir /data/misc 01771 system misc
     mkdir /data/misc/wifi 0770 system wifi
     mkdir /data/misc/wifi/sockets
+    chmod 770 /data/misc/wifi/sockets
     chmod 770 /data/misc/wifi/sockets
     mkdir /data/misc/dhcp 0770 dhcp dhcp
     chown dhcp dhcp /data/misc/dhcp
@@ -380,5 +382,3 @@ service drm /system/bin/drmserver
 ## Restart dhcpservice
 on property:dev.bootcomplete=1
     exec /system/bin/hwaddrs 
-    stop dhcpservice
-    start dhcpservice

@@ -2,9 +2,11 @@
 #
 # mount ext partition from sd card
 # Revised 20111220 by Andrew Sutherland for apps2sd on Evervolv ICS
-# Adapted for MiniCM by nobodyAtall @ xda
 
-SD_EXT_DIRECTORY=/sd-ext;
+if [ "$SD_EXT_DIRECTORY" = "" ];
+then
+    SD_EXT_DIRECTORY=/sd-ext;
+fi;
 BB="/system/xbin/busybox";
 FDISK="$BB fdisk -l";
 E2FSCK="/system/bin/e2fsck";
@@ -19,7 +21,7 @@ do
         SD_EXT_PART=/dev/block/mmcblk${MMC_NUM}p2
         # Find the linux and swap partitions (if they exist)
         #SD_EXT_PART=`$FDISK /dev/block/mmcblk${MMC_NUM} | awk '/^\// && $5 == 83 {print $1;exit;}'`;
-        SWAP_PART=`$FDISK /dev/block/mmcblk${MMC_NUM} | awk '/^\/.* 82 Linux swap/ {print $1;exit;}'`;
+        SWAP_PART=`$FDISK /dev/block/mmcblk${MMC_NUM} | awk '/^\// && $5 == 82 {print $1;exit;}'`;
         setprop ev.sdextpart $SD_EXT_PART
         break;
     fi;
@@ -43,7 +45,7 @@ then
     then
         # mount and set perms
         # it is ok to mount ext[3/4] partitions as ext4
-        $BB mount -t ext4 -o data=ordered,commit=15,barrier=1,nouser_xattr,errors=continue,noatime,nodiratime,nosuid,nodev $SD_EXT_PART $SD_EXT_DIRECTORY;
+        $BB mount -t ext4 -o noauto_da_alloc,data=ordered,commit=15,barrier=1,nouser_xattr,errors=continue,noatime,nodiratime,nosuid,nodev $SD_EXT_PART $SD_EXT_DIRECTORY;
         if [ "$?" = 0 ];
         then
             $BB chown 1000:1000 $SD_EXT_DIRECTORY;

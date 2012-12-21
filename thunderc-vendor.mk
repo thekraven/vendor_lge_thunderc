@@ -37,6 +37,8 @@ PRODUCT_PACKAGES += \
     libOmxCore \
     libdivxdrmdecrypt \
     libmm-omxcore \
+	libtime_genoff \
+	time_deamon \
 	#ffmpeg \
 	#libI420colorconvert \
 	#libstagefright_m4vh263dec \
@@ -46,6 +48,7 @@ PRODUCT_PACKAGES += \
 # Misc
 PRODUCT_PACKAGES += \
     lights.thunderc \
+	libril \
     sensors.thunderc \
     com.android.future.usb.accessory \
     gps.thunderc \
@@ -57,6 +60,7 @@ PRODUCT_PACKAGES += \
 	bdaddr_read \
 	Apollo \
 	CAIParts \
+#	CMFileManager \
    # libcamera \	
 #	LegacyCamera \   	
 
@@ -77,7 +81,7 @@ PRODUCT_PACKAGES += \
     GoogleSearch \
     LatinIME \
     QuickSearchBox \
-    FileManager \
+#    FileManager \
 	
     
 PRODUCT_COPY_FILES += \
